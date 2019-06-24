@@ -1,6 +1,5 @@
 package kafkaproducer;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -10,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class Producer {
+public class ProducerForTopology {
 
-    static final String TOPIC = "stream-name-producer-topic";
-//    static final String SERVERS="localhost:9092,localhost:9093,localhost:9094";
-    static final String SERVERS="192.168.0.115:9092,localhost:9093,localhost:9094";
+    static final String TOPIC = "stream-name-producer-topic2";
+    static final String SERVERS="localhost:9092";
 
     public static void main(String[] args) {
 
@@ -30,17 +28,14 @@ public class Producer {
         try{
 
             ProducerRecord<String,String> producerRecord = null;
-//            String str = "current temp current";
             List<String> list = new ArrayList<>();
-            list.add("KRishna");
-            list.add("Lokesh");
-            list.add("Maddy");
+            list.add("Ram");
+            list.add("Ankish");
+            list.add("rony");
             for( String str : list) {
-//                new ProducerRecord<>("topic",p)
                 producerRecord = new ProducerRecord(TOPIC,str);
                 producer.send(producerRecord);
             System.out.println(str);
-//                System.out.println("Sending records -> " + i + " - " + producerRecord.key() + " - " + producerRecord.value() );
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

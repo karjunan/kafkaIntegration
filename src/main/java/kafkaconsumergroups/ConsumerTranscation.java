@@ -11,10 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class Consumer {
+public class ConsumerTranscation {
 
-    static final String TOPIC = "new-topic";
-    static final String SERVERS="localhost:9092,localhost:9093,localhost:9094";
+    static final String TOPIC = "transaction-producer-topic";
+    static final String SERVERS="192.168.0.115:9092,localhost:9093,localhost:9094";
     public static void main(String[] args) {
 
         Properties properties = new Properties();
@@ -24,6 +24,7 @@ public class Consumer {
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         properties.put(ConsumerConfig.GROUP_ID_CONFIG,"group1");
+        properties.put(ConsumerConfig.ISOLATION_LEVEL_CONFIG,"read_committed");
 
 
         KafkaConsumer<String,String> consumer = new KafkaConsumer<String, String>(properties);
