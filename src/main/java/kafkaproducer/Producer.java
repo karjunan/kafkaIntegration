@@ -1,20 +1,24 @@
 package kafkaproducer;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.messages.Employee;
+import com.messages.Employees;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 public class Producer {
 
-    static final String TOPIC = "stream-name-producer-topic";
-//    static final String SERVERS="localhost:9092,localhost:9093,localhost:9094";
-    static final String SERVERS="192.168.0.115:9092,localhost:9093,localhost:9094";
+    static final String TOPIC = "employee-topic-1";
+    static final String SERVERS="10.0.102.166:9092";
+//    static final String SERVERS="192.168.0.133:9092";
+//    static final String SERVERS="172.24.235.1:9092";
+
+    // static final String SERVERS="192.168.0.115:9092,localhost:9093,localhost:9094";
 
     public static void main(String[] args) {
 
@@ -30,18 +34,24 @@ public class Producer {
         try{
 
             ProducerRecord<String,String> producerRecord = null;
-//            String str = "current temp current";
-            List<String> list = new ArrayList<>();
-            list.add("KRishna");
-            list.add("Lokesh");
-            list.add("Maddy");
-            for( String str : list) {
-//                new ProducerRecord<>("topic",p)
-                producerRecord = new ProducerRecord(TOPIC,str);
-                producer.send(producerRecord);
-            System.out.println(str);
+            Random random = new Random();
+            for( int i = 0; i < 1 ;i++) {
+                for (Employee e : Employees.getEmployees()) {
+                    e.setId(random.nextInt(1000));
+                    ObjectMapper Obj = new ObjectMapper();
+                    String jsonStr = Obj.writeValueAsString(e);
+                    producerRecord = new ProducerRecord<>(TOPIC,jsonStr );
+                    producer.send(producerRecord);
+                    System.out.println(producerRecord.toString());
+
 //                System.out.println("Sending records -> " + i + " - " + producerRecord.key() + " - " + producerRecord.value() );
+                }
+//                Thread.sleep(10000);
             }
+
+
+//                new ProducerRecord<>("topic",p)
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         } finally {

@@ -1,6 +1,5 @@
 package kafkaproducerAvro;
 
-import io.confluent.examples.clients.basicavro.Payment;
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import org.apache.avro.Schema;
@@ -16,16 +15,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-public class KafkaAvroV1 {
+public class KafkaAvroV2 {
 
-    private static final String TOPIC = "transactions";
+    private static final String TOPIC = "topic-1";
     public static void main(String[] args) throws IOException {
 
         final Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
         props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");
 
