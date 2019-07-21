@@ -3,6 +3,7 @@ package kafkaproducer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.messages.Employee;
 import com.messages.Employees;
+import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -26,8 +27,9 @@ public class Producer {
 //        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, SERVERS);
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,KafkaAvroSerializer.class.getName());
 
+        System.out.println(properties);
 
         KafkaProducer<String,String> producer = new KafkaProducer<String,String>(properties);
 

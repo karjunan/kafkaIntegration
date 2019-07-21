@@ -1,0 +1,13 @@
+target
+out
+.idea
+.idea/*
+java-grpc-server.iml
+java-grpc-server.jar
+*.jar
+*.iml
+.project
+*-log*
+*.zip
+*.exe
+classes/
