@@ -34,12 +34,14 @@ import java.util.stream.Stream;
 
 public class Producer {
 
-    static final String TOPIC = "t1";
+//    static final String TOPIC = "t5";
+
+        static final String TOPIC = "words-input1";
     static final String SERVERS="localhost:9092";
 //    static final String SERVERS="192.168.56.1:29092";
 //    static final String SERVERS="172.24.23    5.1:9092";
 
-    // static final String SERVERS="192.168.0.115:9092,localhost:9093,localhost:9094";
+    // static final String SERVERS="192.168.0.115:9092,lo   calhost:9093,localhost:9094";
 
     public static void main(String[] args) throws IOException {
 
