@@ -19,11 +19,11 @@ import java.util.concurrent.Future;
 
 public class ProducerTranscation {
 
-    static final String TOPIC = "transaction-producer-topic";
-    static final String TOPIC1 = "transaction-producer-topic-1";
+//    static final String TOPIC = "transaction-producer-topic";
+    static final String TOPIC1 = "t5";
 
-    //    static final String SERVERS="localhost:9092,localhost:9093,localhost:9094";
-    static final String SERVERS="192.168.0.115:9092,localhost:9093,localhost:9094";
+        static final String SERVERS="localhost:9092,localhost:9093,localhost:9094";
+//    static final String SERVERS="192.168.0.115:9092,localhost:9093,localhost:9094";
 
     public static void main(String[] args) {
 
@@ -41,9 +41,9 @@ public class ProducerTranscation {
         try {
             producer.beginTransaction();
             for (int i = 0; i < 20; i++){
-                producer.send(new ProducerRecord<>(TOPIC, Integer.toString(i), Integer.toString(i)));
+//                producer.send(new ProducerRecord<>(TOPIC, Integer.toString(i), Integer.toString(i)));
                 producer.send(new ProducerRecord<>(TOPIC1, Integer.toString(i), Integer.toString(i)));
-                Thread.sleep(1000);
+//                Thread.sleep(1000);
                 System.out.println("Inserted " + i);
 
             }
@@ -58,8 +58,6 @@ public class ProducerTranscation {
             System.out.println("Trancation is not in good shape !! Aborting !!!");
             producer.abortTransaction();
 //        }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
         producer.close();
 

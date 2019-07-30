@@ -13,15 +13,18 @@ import java.util.Properties;
 
 public class Consumer3 {
 
-    static final String TOPIC = "new-topic";
+    static final String TOPIC = "t5";
 
     public static void main(String[] args) {
 
         Properties properties = new Properties();
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.0.112:9092,192.168.0.112:9093,192.168.0.112:9094");
+//        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.0.112:9092,192.168.0.112:9093,192.168.0.112:9094");
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "group1");
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "group2");
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);
 
@@ -32,7 +35,7 @@ public class Consumer3 {
 
         try {
             while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(10));
                 for (ConsumerRecord<String, String> record : records) {
                     System.out.println(record.key() + " ->  " + record.value() + " -> " + record.partition());
                 }

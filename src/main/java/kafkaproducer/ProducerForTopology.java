@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class ProducerForTopology {
 
-    static final String TOPIC = "stream-name-producer-topic2";
+    static final String TOPIC = "t5";
     static final String SERVERS="localhost:9092";
 
     public static void main(String[] args) {

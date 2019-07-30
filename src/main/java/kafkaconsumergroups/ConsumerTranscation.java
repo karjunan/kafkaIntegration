@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class ConsumerTranscation {
 
-    static final String TOPIC = "transaction-producer-topic";
+    static final String TOPIC = "t5";
     static final String SERVERS="192.168.0.115:9092,localhost:9093,localhost:9094";
     public static void main(String[] args) {
 

@@ -17,7 +17,7 @@ import java.util.Properties;
 
 public class KafkaConsumerAvroV1 {
 
-    private static final String TOPIC = "topic-1";
+    private static final String TOPIC = "t10";
     public static void main(final String[] args) {
         final Properties  props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -33,7 +33,8 @@ public class KafkaConsumerAvroV1 {
         try (final KafkaConsumer<String, Message> consumer = new KafkaConsumer<>(props)) {
             List<String> list = new ArrayList<>();
             list.add(TOPIC);
-            list.add("t2");
+//            list.add("t2");
+//            list.add("t3");
             consumer.subscribe(list);
 
             while (true) {
@@ -48,3 +49,11 @@ public class KafkaConsumerAvroV1 {
         }
     }
 }
+//        properties = new Properties();
+//        properties.put(StreamsConfig.APPLICATION_ID_CONFIG, "read-example");
+//        properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,  "localhost:9092");
+//        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, kafkaConsumerProperties.getAuto_offset_reset());
+////        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+//        properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG,Serdes.String().getClass());
+//        properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,Serdes.String().getClass());
+//        properties.put(ConsumerConfig.GROUP_ID_CONFIG,"group-1");
