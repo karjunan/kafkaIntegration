@@ -10,7 +10,7 @@ import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.commons.lang.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 
-import javax.xml.bind.DatatypeConverter;
+//import javax.xml.bind.DatatypeConverter;
 import java.util.Arrays;
 import java.util.Map;
 
