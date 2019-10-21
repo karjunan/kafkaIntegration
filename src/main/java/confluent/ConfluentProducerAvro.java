@@ -46,6 +46,8 @@ public class ConfluentProducerAvro {
         properties.put("request.timeout.ms","1000");
         properties.put("sasl.jaas.config","org.apache.kafka.common.security.plain.PlainLoginModule required username=\"HR7BMQFCH3FCA32I\" password=\"AFI+3XWz0f+JIF983A05Qy+T8G7i0GDyqLO//WDUPIR0pEYyrWK8u6w4gGgiuC1S\";");
         properties.put("security.protocol","SASL_SSL");
+
+
         properties.put("basic.auth.credentials.source","USER_INFO");
         properties.put("schema.registry.url", "https://psrc-l6oz3.us-east-2.aws.confluent.cloud");
         properties.put("schema.registry.basic.auth.user.info" ,"PBDH6NJ4XFQRTJPS:MQFEt01i9ECjMMgsVAnSdHvXrRQgU+sTBNLmmiUviVxtHAadM8uLOB9VboVfLUau");
@@ -87,7 +89,7 @@ public class ConfluentProducerAvro {
                 builder.set("id","krishna");
 //                builder.set("amount", 100d);
                 GenericData.Record record = builder.build();
-                Future<RecordMetadata> future = producer.send(new ProducerRecord<>("t3",record));
+                Future<RecordMetadata> future = producer.send(new ProducerRecord<>("t3",null,"key",record));
                 System.out.println("Message Sent " + future.get().offset());
             }
 
