@@ -16,7 +16,7 @@ import java.util.Properties;
 
 public class kStreamSampleExample {
 
-    static final String NAME_TOPIC = "t1";
+    static final String NAME_TOPIC = "t5";
     static final String MODIFIED_NAME_TOPIC = "stream-modified-name-producer-topic";
     static final String SERVERS="localhost:9092,localhost:9093,localhost:9094";
     Properties properties;

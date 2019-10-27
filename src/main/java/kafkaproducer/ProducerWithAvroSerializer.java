@@ -20,24 +20,20 @@ import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Producer {
+public class ProducerWithAvroSerializer {
 
-    static final String TOPIC = "Topic1";
+    static final String TOPIC = "t6";
 
 //        static final String TOPIC = "words-input1";
-    static final String SERVERS="pkc-4ygw7.ap-southeast-2.aws.confluent.cloud:9092";
+    static final String SERVERS="localhost:9092";
 //    static final String SERVERS="192.168.56.1:29092";
 //    static final String SERVERS="172.24.23    5.1:9092";
 
@@ -50,47 +46,26 @@ public class Producer {
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, SERVERS);
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 //        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, ByteArraySerializer.class.getName());
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
         properties.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");
-
-        //   ssl.endpoint.identification.algorithm=https
-        //   sasl.mechanism=PLAIN
-        //   request.timeout.ms=20000
-        //   bootstrap.servers=<CLUSTER_BOOTSTRAP_SERVER>
-        //   retry.backoff.ms=500
-        //   sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="<CLUSTER_API_KEY>" password="<CLUSTER_API_SECRET>";
-        //   security.protocol=SASL_SSL
-        //   basic.auth.credentials.source=USER_INFO
-        //   schema.registry.basic.auth.user.info=<SR_API_KEY>:<SR_API_SECRET>
-        //   schema.registry.url=https://<SR ENDPOINT>
 
         System.out.println(properties);
 
-        KafkaProducer<String, byte[]> producer = new KafkaProducer(properties);
+        KafkaProducer<String, Message> producer = new KafkaProducer(properties);
 
         try {
 
-            ProducerRecord<String, byte[]> producerRecord = null;
+            ProducerRecord<String, Message> producerRecord = null;
             Random random = new Random();
             for (int i = 0; i < 5; i++) {
                 for (Employee e : Employees.getEmployees()) {
                     e.setId(random.nextInt(1000));
                     ObjectMapper Obj = new ObjectMapper();
                     String jsonStr = Obj.writeValueAsString(e);
-                    GenericRecord record = buildRecord();
-                    record.put("value",jsonStr);
-
-                    DatumWriter<GenericRecord> writer = new SpecificDatumWriter<>(Message.getClassSchema());
-                    ByteArrayOutputStream out = new ByteArrayOutputStream();
-                    BinaryEncoder encoder = EncoderFactory.get().binaryEncoder(out, null);
-                    writer.write(record, encoder);
-                    encoder.flush();
-                    out.close();
-
-                    producerRecord = new ProducerRecord(TOPIC, out.toByteArray());
-                    System.out.println("Producer Record going to insert => " + producerRecord);
+                    Message message = Message.newBuilder().setValue(jsonStr).build();
+                    producerRecord = new ProducerRecord(TOPIC,message);
                     producer.send(producerRecord);
-                    System.out.println("Completed writing the record => " + producerRecord.toString());
+                    System.out.println(producerRecord.toString());
 
                 }
             }
