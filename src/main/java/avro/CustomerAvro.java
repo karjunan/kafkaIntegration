@@ -1,9 +1,17 @@
 package avro;
 
 import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileReader;
+import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.generic.GenericDatumReader;
+import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
+import org.apache.avro.io.DatumReader;
+import org.apache.avro.io.DatumWriter;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.Arrays;
 
 public class CustomerAvro {
@@ -36,6 +44,39 @@ public class CustomerAvro {
 
         System.out.println(builder.build().toString());
 
+        File file = new File("customer.avro");
+
+        writeData(schema,builder.build(),file);
+
+        readData(file);
+
     }
+
+    private static void readData(File file) {
+        final DatumReader<GenericRecord> datumReader = new GenericDatumReader<>();
+
+        try(DataFileReader<GenericRecord> fileReader = new DataFileReader<GenericRecord>(file,datumReader)) {
+            fileReader.forEachRemaining(v -> System.out.println(v.toString()));
+            System.out.println("Completed reading from avro file !!");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    private static void writeData(Schema schema, GenericRecord record, File file) {
+        DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
+        try(DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<GenericRecord>(datumWriter)) {
+
+            dataFileWriter.create(schema,file);
+            dataFileWriter.append(record);
+            System.out.println("Customer data written to a file !!");
+
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
 
 }

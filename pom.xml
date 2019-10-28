@@ -28,10 +28,12 @@
             <artifactId>kafka-streams</artifactId>
             <version>2.2.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.avro/avro -->
         <dependency>
             <groupId>org.apache.avro</groupId>
             <artifactId>avro</artifactId>
-            <version>${avro.version}</version>
+            <version>1.9.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.avro/avro-tools -->
         <dependency>
