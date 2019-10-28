@@ -33,8 +33,8 @@ public class ConfluentProducer {
         System.out.println(properties);
         try {
 
-            for (int i = 0; i < 5; i++) {
-                   Future<RecordMetadata> future = producer.send(new ProducerRecord<>("t2","Dude oh dude"));
+            for (int i = 0; i < 1000000000; i++) {
+                   Future<RecordMetadata> future = producer.send(new ProducerRecord<>("t2","Testing ksql"));
                 System.out.println("Message Sent " + future.get().offset());
             }
 

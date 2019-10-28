@@ -1,6 +1,6 @@
 package kafkaconsumergroups;
 
-import kafka.tools.ConsoleConsumer;
+//import kafka.tools.ConsoleConsumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

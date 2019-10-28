@@ -1,0 +1,4 @@
+request.timeout.ms=20000
+bootstrap.servers=http://localhost:9021
+retry.backoff.ms=500
+schema.registry.url=http://localhost:8081

@@ -1,5 +1,6 @@
 package confluent;
 
+import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
@@ -47,9 +48,12 @@ public class ConfluentProducerAvroSimpleLocal {
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 KafkaAvroSerializer.class);
 
+//        properties.put(AbstractKafkaAvroSerDeConfig.A, false);
+
 //        properties.put("basic.auth.credentials.source","USER_INFO");
         properties.put("schema.registry.url", "http://172.30.242.65:8081");
-//        properties.put("schema.registry.basic.auth.user.info" ,"PBDH6NJ4XFQRTJPS:MQFEt01i9ECjMMgsVAnSdHvXrRQgU+sTBNLmmiUviVxtHAadM8uLOB9VboVfLUau");
+//        properties.put("schema.registry.url", "https://psrc-l6oz3.us-east-2.aws.confluent.cloud:443");
+        properties.put("schema.registry.basic.auth.user.info" ,"PBDH6NJ4XFQRTJPS:MQFEt01i9ECjMMgsVAnSdHvXrRQgU+sTBNLmmiUviVxtHAadM8uLOB9VboVfLUau");
 
         KafkaProducer<String,Object> producer = new KafkaProducer<>(properties);
 //        KafkaProducer<String, GenericRecord> producer = new KafkaProducer(properties);
@@ -58,37 +62,37 @@ public class ConfluentProducerAvroSimpleLocal {
         ProducerRecord<String, Object> psRecprd;
         for(int i = 0 ; i < 5 ; i++) {
             System.out.println("Looping data " + i);
-            Future<RecordMetadata> future = producer.send(new ProducerRecord<>(TOPIC,createAvroRecord()));
+            Future<RecordMetadata> future = producer.send(new ProducerRecord(TOPIC,null));
             System.out.println(future.get());
 
         }
     }
 
-    public static GenericRecord createAvroRecord() {
-        String userSchema = "{\"namespace\": \"example.avro\", \"type\": \"record\", " +
-                "\"name\": \"user\"," +
-                "\"fields\": [{\"name\": \"name\", \"type\": \"string\"}," +
-                             "{\"name\": \"age\", \"type\": \"string\", \"default\": \"0\"}]}";
-
-
-
-        Schema.Parser parser = new Schema.Parser();
-        Schema schema = parser.parse(userSchema);
+//    public static GenericRecord createAvroRecord() {
+//        String userSchema = "{\"namespace\": \"example.avro\", \"type\": \"record\", " +
+//                "\"name\": \"user\"," +
+//                "\"fields\": [{\"name\": \"name\", \"type\": \"string\"}," +
+//                             "{\"name\": \"age\", \"type\": \"string\", \"default\": \"0\"}]}";
+//
+//
+//
+//        Schema.Parser parser = new Schema.Parser();
+//        Schema schema = parser.parse(userSchema);
 
 
 //        String data = "{\"name\": \"Krishna\" ," +
 //                       "\"age\": \"10\"}";
-        String data = "{\"name\": \"Krishna\"}";
+//        String data = "{\"name\": \"Krishna\"}";
 
-        GenericRecord avroRecord = new JsonAvroConverter().convertToGenericDataRecord(data.getBytes(),schema);
+//        GenericRecord avroRecord = new JsonAvroConverter().convertToGenericDataRecord(data.getBytes(),schema);
 //        GenericRecord avroRecord = new GenericData.Record(schema);
 //        avroRecord.put("name","krishna");
 //        avroRecord.put("age","100");
-        System.out.println(avroRecord.toString());
+//        System.out.println(avroRecord.toString());
 //        JsonAvroConverter converter = new JsonAvroConverter();
 //        byte[] bytes = converter.convertToAvro(data.getBytes(), userSchema);
 //        avroRecord.put("name", "Krishna");
 
-        return avroRecord;
-    }
+//        return avroRecord;
+//    }
 }

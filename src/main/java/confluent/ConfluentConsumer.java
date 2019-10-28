@@ -10,7 +10,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
-import scala.collection.immutable.Stream;
+//import scala.collection.immutable.Stream;
 
 import java.util.Collections;
 import java.util.Properties;
