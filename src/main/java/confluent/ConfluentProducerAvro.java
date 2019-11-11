@@ -11,12 +11,12 @@ import org.apache.http.HttpEntity;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.methods.CloseableHttpResponse;
+//import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.protocol.HttpClientContext;
+//import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+//import org.apache.http.impl.client.CloseableHttpClient;
+//import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -57,7 +57,7 @@ public class ConfluentProducerAvro {
         System.out.println(properties);
 
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+//        CloseableHttpClient httpClient = HttpClients.createDefault();
         String schema = "";
         try {
             CredentialsProvider credsProvider = new BasicCredentialsProvider();
@@ -72,9 +72,9 @@ public class ConfluentProducerAvro {
 
             HttpGet request = new HttpGet("https://PBDH6NJ4XFQRTJPS:MQFEt01i9ECjMMgsVAnSdHvXrRQgU+sTBNLmmiUviVxtHAadM8uLOB9VboVfLUau@psrc-l6oz3.us-east-2.aws.confluent.cloud/subjects/t3-value/versions/1/schema");
 //            HttpGet request = new HttpGet("https://PBDH6NJ4XFQRTJPS:MQFEt01i9ECjMMgsVAnSdHvXrRQgU+sTBNLmmiUviVxtHAadM8uLOB9VboVfLUau@psrc-l6oz3.us-east-2.aws.confluent.cloud/subjects/T2-value/versions/1/schema");
-            CloseableHttpResponse response = httpClient.execute(request);
-            HttpEntity entity = response.getEntity();
-            schema = EntityUtils.toString(entity);
+//            CloseableHttpResponse response = httpClient.execute(request);
+//            HttpEntity entity = response.getEntity();
+//            schema = EntityUtils.toString(entity);
             System.out.println("Output is => " + schema);
         } catch (Exception ex) {
 

@@ -92,33 +92,6 @@
 <!--            <version>${avro.version}</version>-->
 <!--        </dependency>-->
         <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro-tools</artifactId>
-            <version>1.9.1</version>
-        </dependency>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        <!-- https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry -->
-        <dependency>
-            <groupId>io.confluent</groupId>
-            <artifactId>kafka-schema-registry-client</artifactId>   <!-- <1> -->
-            <version>5.3.0</version>
-=======
-=======
->>>>>>> Stashed changes
-<!--        <dependency>-->
-<!--            <groupId>io.confluent</groupId>-->
-<!--            <artifactId>kafka-avro-serializer</artifactId>-->
-<!--            &lt;!&ndash; For CP 3.0.0 &ndash;&gt;-->
-<!--
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.2.4</version>
->>>>>>> Stashed changes
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams</artifactId>
             <version>${kafka.version}</version>
@@ -140,6 +113,18 @@
 <!--            <artifactId>avro</artifactId>-->
 <!--            <version>${avro.version}</version>-->
 <!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro-tools</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry -->
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-schema-registry-client</artifactId>   <!-- <1> -->
+            <version>5.3.0</version>
+
+        </dependency>
         <dependency>
             <groupId>org.apache.avro</groupId>
             <artifactId>avro-maven-plugin</artifactId>

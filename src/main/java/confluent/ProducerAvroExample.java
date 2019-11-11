@@ -134,6 +134,7 @@ public class ProducerAvroExample {
 
 //            System.out.printf("Producing record: %s\t%s%n", customer);
             producer.send(new ProducerRecord(topic,  key,myCustomer), new Callback() {
+                new ProducerRecord
                 @Override
                 public void onCompletion(RecordMetadata m, Exception e) {
                     if (e != null) {
